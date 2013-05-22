@@ -1,0 +1,410 @@
+@charset "UTF-8";
+/*
+Theme Name:MoshimoQuickMakerTemplate01
+Theme URI:http://www.a-ings.net/
+Description:ドロップシッピングもしも用プラグイン「MoshimoQuickMaker」専用テンプレート
+Author:n.uchiumi
+Author URI:http://www.a-ings.net/
+Version:1.0
+*/
+
+
+/*   ------------ 基幹レイアウト ------------    */
+
+* {margin: 0; padding: 0; }
+
+html,body {
+	height: 100%;
+}
+
+body{
+	text-align: center;
+	/*background:url(../../images/pub_outback.gif);*/
+	background-color:#FFF;
+}
+
+
+/*    ------------ IEハック ------------    */
+
+/* --- IE6以下 --- */
+
+* html {
+	filter: expression(document.execCommand("BackgroundImageCache", false, true)); /* CSSロールオーバー背景画像がIE6でちらつく */
+}
+
+* html body {
+	padding-left: 1px; /* 背景画像がずれる */
+}
+
+
+/* --- IE7 --- */
+*+html body {
+	padding-left: 1px; /* 背景画像がずれる */
+}
+
+/*    ------------ フォント表示 ------------    */
+
+body,div,pre,p,blockquote,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,pre,form,fieldset,input,textarea,select,option,table,th,td,embed,object,address,non {
+	margin:0;
+	padding:0;
+	/*font-family:HiraKakuPro-W3, "MS UI Gothic", "MS PGothic", verdana, arial, helvetica,Osaka,sans-serif;*/
+	font-weight:normal;
+	font-style:normal;
+	font-size:100%;
+	color:#434343;
+}
+
+body{
+font:13px/1.231 "ＭＳ Ｐゴシック","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3",arial,helvetica,clean,sans-serif;
+
+
+*font-size:small;/* WinIE7,WinIE6 標準準拠モード向け */
+*font:x-small;/* WinIE5,5.5,6(後方互換モード)向け */
+
+/*for justify//////////////////
+text-align:justify;
+text-justify:inter-ideograph;
+*/
+}
+
+table {
+font-size:inherit;/* モダンブラウザ向け */
+font:100%;/* WinIE5,5.5,6(後方互換モード)向け */
+border-collapse:collapse;
+border-spacing:0;
+}
+
+pre,code,kbd,samp,tt {
+font-family: monospace;
+*font-size: 108%; /* Win IE全般向け */
+line-height: 100%;
+}
+
+h1 img,h2 img,h3 img,h4 img,h5 img,h6 img{
+vertical-align:top;
+}
+
+img{
+	border:none;
+}
+
+/*    ------------ 行間,Justify指定 ------------     */
+
+p{
+line-height:1.6;
+text-align:justify;
+text-justify:inter-ideograph;
+}
+
+.textcenter{
+	text-align:center;
+}
+
+/*    ------------ Font size,color ------------    */
+
+.text10{font-size:77%;}
+.text11{font-size:85%;}
+.text12{font-size:93%;}
+.text13{font-size:100%;}
+.text14{font-size:108%;}
+.text15{font-size:116%;}
+.text16{font-size:123.1%;}
+.text17{font-size:131%;}
+.text18{font-size:138.5%;}
+.text19{font-size:146.5%;}
+.text20{font-size:153.9%;}
+.text21{font-size:161.6%;}
+.text22{font-size:167%;}
+.text23{font-size:174%;}
+.text24{font-size:182%;}
+.text25{font-size:189%;}
+.text26{font-size:197%;}
+.sizeClear{font-size:13px; *font-size:small; *font:x-small;}
+
+.textWhite{color:#FFFFFF;}
+.textRed{color:#C00;}
+.textBlue{color:#2C5561;}
+.textPurple{color:#6C3863};
+.textGray{color:#333333;}
+.textMediumGray{color:#666666;}
+.textLightGray{color:#999999;}
+.textLightBlue{color:#40B9EF;}
+
+.bold{font-weight:bold;}
+
+/*    ------------ float ------------    */
+
+.floatL{
+float:left;
+}
+.floatR{
+float:right;
+}
+
+/*    ------------ list表示 ------------    */
+
+li {
+	list-style-type: none;
+}
+
+li img,dt img,
+	dd img{
+	vertical-align:top; /* 画像下のスペース消し */
+}
+
+/*    ------------ table表示 ------------    */
+
+
+td{
+	border:1px solid #999;
+	padding:5px 5px 5px 5px;
+	background:#F5F5F5;
+}
+
+th{
+	border:1px solid #999;
+	padding:5px 5px 5px 5px;
+	background:#E5E5E5;
+	white-space:nowrap ;
+}
+
+td img {
+	display: block;
+}
+
+
+/*    ------------ clearfix ------------    */
+
+.clearfix:after{
+content:".";
+display:block;
+height:0;
+clear:both;
+visibility:hidden;
+}
+.clearfix{
+display:inline-block;
+}
+/* Hides from IE-mac ¥*/
+* html .clearfix {
+height:1%;
+}
+.clearfix{
+display:block;
+}
+
+
+
+
+
+
+/*    ------------ Padding / Margin ------------    */
+
+.padT0{padding-top:0px;}
+.padT3{padding-top:3px;}
+.padT5{padding-top:5px;}
+.padT10{padding-top:10px;}
+.padT15{padding-top:15px;}
+.padT20{padding-top:20px;}
+.padT30{padding-top:30px;}
+.padT40{padding-top:40px;}
+.padT50{padding-top:50px;}
+
+.padB0{padding-bottom:0px;}
+.padB3{padding-bottom:3px;}
+.padB5{padding-bottom:5px;}
+.padB10{padding-bottom:10px;}
+.padB15{padding-bottom:15px;}
+.padB20{padding-bottom:20px;}
+.padB30{padding-bottom:30px;}
+.padB40{padding-bottom:40px;}
+.padB50{padding-bottom:50px;}
+
+.padL0{padding-left:0px;}
+.padL3{padding-left:3px;}
+.padL5{padding-left:5px;}
+.padL10{padding-left:10px;}
+.padL15{padding-left:15px;}
+.padL20{padding-left:20px;}
+.padL30{padding-left:30px;}
+.padL40{padding-left:40px;}
+.padL50{padding-left:50px;}
+
+.padR0{padding-right:0px;}
+.padR3{padding-right:3px;}
+.padR5{padding-right:5px;}
+.padR10{padding-right:10px;}
+.padR15{padding-right:15px;}
+.padR20{padding-right:20px;}
+.padR30{padding-right:30px;}
+.padR40{padding-right:40px;}
+.padR50{padding-right:50px;}
+
+.marT0{margin-top:0px;}
+.marT3{margin-top:3px;}
+.marT5{margin-top:5px;}
+.marT10{margin-top:10px;}
+.marT15{margin-top:15px;}
+.marT20{margin-top:20px;}
+.marT30{margin-top:30px;}
+.marT40{margin-top:40px;}
+.marT50{margin-top:50px;}
+
+.marB0{margin-bottom:0px;}
+.marB3{margin-bottom:3px;}
+.marB5{margin-bottom:5px;}
+.marB10{margin-bottom:10px;}
+.marB15{margin-bottom:15px;}
+.marB20{margin-bottom:20px;}
+.marB30{margin-bottom:30px;}
+.marB40{margin-bottom:40px;}
+.marB50{margin-bottom:50px;}
+
+.marL0{margin-left:0px;}
+.marL3{margin-left:3px;}
+.marL5{margin-left:5px;}
+.marL10{margin-left:10px;}
+.marL13{margin-left:13px;}
+.marL15{margin-left:15px;}
+.marL20{margin-left:20px;}
+.marL30{margin-left:30px;}
+.marL40{margin-left:40px;}
+.marL50{margin-left:50px;}
+
+.marR0{margin-right:0px;}
+.marR3{margin-right:3px;}
+.marR5{margin-right:5px;}
+.marR10{margin-right:10px;}
+.marR15{margin-right:15px;}
+.marR20{margin-right:20px;}
+.marR30{margin-right:30px;}
+.marR40{margin-right:40px;}
+.marR50{margin-right:50px;}
+
+.hiden {text-indent: -9999px;}
+
+/*    ------------ Margin 6px ------------    */
+
+.marT6{margin-top:6px;}
+.marT16{margin-top:16px;}
+.marT26{margin-top:26px;}
+.marT36{margin-top:36px;}
+
+.marB6{margin-bottom:6px;}
+.marB16{margin-bottom:16px;}
+.marB26{margin-bottom:26px;}
+.marB36{margin-bottom:36px;}
+
+.marL6{margin-left:6px;}
+.marL16{margin-left:16px;}
+.marL26{margin-left:26px;}
+.marL36{margin-left:36px;}
+
+.marR6{margin-right:6px;}
+.marR16{margin-right:16px;}
+.marR26{margin-right:26px;}
+.marR36{margin-right:36px;}
+
+
+/*    ------------ Layout ------------    */
+#head{
+	width:1000px;
+	background-color:#000;
+	margin:0px auto;
+}
+
+#head #locus_area{
+	padding:10px 0px 10px 0px;
+}
+
+#container{
+	width:1000px;
+	margin:0px auto;
+}
+
+#main{
+	width:800px;
+	background-color:#F3F3F3;
+	float:left;
+}
+
+#sidebar{
+	width:200px;
+	background-color:#666666;
+	float:left;
+}
+
+#footer{
+	width:1000px;
+	background-color:#000;
+	margin:0px auto;
+}
+
+.more-link{
+	text-align:left;
+}
+
+/*    ------------ pager ------------    */
+/*
+#pager_area{
+	width:800px;
+	padding:20px 0px 20px 0px;
+}
+
+#pager_area .wp-pagenavi {
+	clear: both;
+}
+
+#pager_area .wp-pagenavi a, .wp-pagenavi span {
+	text-decoration: none;
+	border: 1px solid #BFBFBF;
+	padding: 3px 5px;
+	margin: 2px;
+}
+
+#pager_area .wp-pagenavi a:hover, .wp-pagenavi span.current {
+	border-color: #000;
+}
+
+#pager_area .wp-pagenavi span.current {
+	font-weight: bold;
+}
+*/
+/*    ------------ index ------------    */
+/*
+#main_home{
+	width:800px;
+	background-color:#F3F3F3;
+	float:left;
+}
+
+#main_home .information_area{
+	width:300px;
+	padding:10px;
+	border:1px solid #999;
+}
+
+#main_home .information_area li{
+	padding:10px 0px 10px 0px;
+	border-bottom:1px solid #999;
+}
+
+#main_home .information_area h2{
+	text-align:left;
+	font-weight:bold;
+	padding:0px 0px 10px 0px;
+}
+
+#main_home .information_area h2 .info_date{
+	font-size:77%;
+	padding:0px 0px 0px 10px;
+}
+*/
+/*    ------------ index ------------    */
+/*
+#information_list{
+	width:800px;
+	background-color:#F3F3F3;
+	float:left;
+}
+*/

@@ -1,0 +1,86 @@
+/*    ------------ clearfix ------------    */
+
+.clearfix:after{
+	content:".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+.clearfix{
+	display:inline-block;
+}
+/* Hides from IE-mac \*/
+* html .clearfix {
+	height:1%;
+}
+.clearfix{
+	display:block;
+}
+
+/*    ----------------------------------    */
+
+#uc_msm_admintop{
+}
+
+#uc_msm_admintop .update_time{
+	padding:10px;
+	font-weight:bold;
+	background-color:#F2F2F2;
+	margin-right:20px;
+}
+
+#uc_msm_admintop table .regular-text{
+	width:270px;
+}
+
+#uc_msm_admintop table .regular-textbox{
+	width:270px;
+	height:200px;
+}
+
+#uc_msm_admintop table .midium-textbox{
+	width:270px;
+	height:100px;
+}
+
+#uc_msm_admintop .conf_update{
+}
+
+#uc_msm_admintop .conf_update li{
+	float:left;
+	padding:0px 20px 0px 0px;
+}
+
+/*    ----------------------------------    */
+
+#uc_msm_admincategory table.admin_category_parent{
+	border:solid 1px #CCC;
+}
+
+#uc_msm_admincategory table.admin_category_parent tr td{
+	width:270px;
+	padding:10px;
+	vertical-align: top;
+	background-color: #F0F0F0;
+}
+
+#uc_msm_admincategory .category_title{
+	font-weight:bold;
+	font-size:120%;
+}
+
+#uc_msm_admincategory .sub_category{
+	padding:0px 0px 0px 10px;
+}
+
+#uc_msm_nowload{
+	display:none;
+}
+
+.error{
+	color:#C00;
+	font-weight:bold;
+	text-align:left;
+	padding:10px 0px 10px 0px;
+}
