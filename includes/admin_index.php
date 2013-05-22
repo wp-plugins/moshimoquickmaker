@@ -483,7 +483,7 @@ $here = '<div id="uc_msm_admincategory">
 			
 $here = '<div id="uc_msm_admincategory">
 	<h2>カテゴリー設定</h2>
-	<p>カテゴリーが取得できません。Authorizationコードが間違っている可能性があります。</p>';
+	<p>カテゴリーが取得できません。もしもAPI認証コードが間違っている可能性があります。</p>';
 	echo $here;
 			
 		}
