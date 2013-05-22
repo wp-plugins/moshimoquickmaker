@@ -282,7 +282,7 @@ class UcDsMoshimo{
 		
 		echo $html;
 		
-echo <<<HERE 
+echo <<<HERE
 		<div id="uc_msm_admintop">
 		<div id="icon-plugins" class="icon32"><br /></div><h2>$this->myplugintitle</h2>
 		<p>プラグインバージョン: $this->myversion</p>
@@ -468,7 +468,7 @@ HERE;
 
 echo $html;
 
-echo <<<HERE 
+echo <<<HERE
 	
 	<div id="uc_msm_admincategory">
 	<h2>カテゴリー設定</h2>
@@ -485,7 +485,7 @@ HERE;
 
 		}else{
 			
-echo <<<HERE 
+echo <<<HERE
 	
 	<div id="uc_msm_admincategory">
 	<h2>カテゴリー設定</h2>
