@@ -1,5 +1,5 @@
 <?php
-ini_set( 'display_errors', 1 );
+ini_set( 'display_errors', 0 );
 
 require_once( UC_MSM_FUNCTIONPATH.'func_common.php');
 require_once( UC_MSM_FUNCTIONPATH.'func_Judge.php');
