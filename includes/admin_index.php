@@ -282,11 +282,10 @@ class UcDsMoshimo{
 		
 		echo $html;
 		
-echo <<<HERE
-		<div id="uc_msm_admintop">
-		<div id="icon-plugins" class="icon32"><br /></div><h2>$this->myplugintitle</h2>
-		<p>プラグインバージョン: $this->myversion</p>
-		<p class="update_time">前回商品更新：$ht_conf_shopupdate_lasttime</p>
+$here = '<div id="uc_msm_admintop">
+		<div id="icon-plugins" class="icon32"><br /></div><h2>'.$this->myplugintitle.'</h2>
+		<p>プラグインバージョン: '.$this->myversion.'</p>
+		<p class="update_time">前回商品更新：'.$ht_conf_shopupdate_lasttime.'</p>
 		<form name="conf" action="" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="posted" value="Y">
 		<input type="hidden" name="conf_confid" value="1">
@@ -295,7 +294,7 @@ echo <<<HERE
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">もしもAPI認証コード ※</label></th>
 			   <td>
-			   <input name="conf_apicode" type="text" id="inputtext" value="$ht_conf_apicode" class="regular-text" />
+			   <input name="conf_apicode" type="text" id="inputtext" value="'.$ht_conf_apicode.'" class="regular-text" />
 			   <p><a href="https://www.moshimo.com/shop/service/api" target="_blank">※「もしも」にログイン後、もしもAPIより認証コードを入手してください。</a></p>
 			   <div id="error_conf_apicode"></div>
 			   </td>
@@ -306,21 +305,21 @@ echo <<<HERE
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">もしもショップID ※</label></th>
 			   <td>
-			   <input name="conf_salecode" type="text" id="inputtext" value="$ht_conf_salecode" class="regular-text" />
+			   <input name="conf_salecode" type="text" id="inputtext" value="'.$ht_conf_salecode.'" class="regular-text" />
 			   <div id="error_conf_salecode"></div>
 			   </td>
 		   </tr>
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">ショップ名 ※</label></th>
 			   <td>
-			   <input name="conf_shopname" type="text" id="inputtext" value="$ht_conf_shopname" class="regular-text" />
+			   <input name="conf_shopname" type="text" id="inputtext" value="'.$ht_conf_shopname.'" class="regular-text" />
 			   <div id="error_conf_shopname"></div>
 			   </td>
 		   </tr>
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">ショップ説明テキスト</label></th>
 			   <td>
-			   <textarea name="conf_shopcatch" class="regular-textbox" >$ht_conf_shopcatch</textarea>
+			   <textarea name="conf_shopcatch" class="regular-textbox" >'.$ht_conf_shopcatch.'</textarea>
 			   
 			   <div id="error_conf_shopcatch"></div>
 			   </td>
@@ -328,14 +327,14 @@ echo <<<HERE
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">HTML内ディスクリプション</label></th>
 			   <td>
-			   <textarea name="conf_shopdescript" class="midium-textbox" >$ht_conf_shopdescript</textarea>
+			   <textarea name="conf_shopdescript" class="midium-textbox" >'.$ht_conf_shopdescript.'</textarea>
 			   <div id="error_conf_shopdescript"></div>
 			   </td>
 		   </tr>
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">HTML内キーワード</label></th>
 			   <td>
-			   <textarea name="conf_shopkeyword" class="midium-textbox" >$ht_conf_shopkeyword</textarea>
+			   <textarea name="conf_shopkeyword" class="midium-textbox" >'.$ht_conf_shopkeyword.'</textarea>
 			   <p>※検索希望語句を半角「,」で区切ってください。</p>
 			   <div id="error_conf_shopkeyword"></div>
 			   </td>
@@ -343,17 +342,17 @@ echo <<<HERE
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">トップページ画像</label></th>
 			   <td>
-			   <p>$topimg_tag</p>
+			   <p>'.$topimg_tag.'</p>
 			   <input name="conf_shopimg" type="file" id="inputtext" class="regular-file" />
 			   <p>※幅740ピクセル推奨</p>
 			   <div id="error_conf_shopimg"></div>
-			   <p><input type="checkbox" name="conf_shopimg_flag" value="true" $shopimg_flag /> 画像を使用する</p>
+			   <p><input type="checkbox" name="conf_shopimg_flag" value="true" '.$shopimg_flag.' /> 画像を使用する</p>
 			   </td>
 		   </tr>
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">トップページ画像リンク</label></th>
 			   <td>
-			   <input name="conf_shopimglink" type="text" id="inputtext" value="$ht_conf_shopimglink" class="regular-text" />
+			   <input name="conf_shopimglink" type="text" id="inputtext" value="'.$ht_conf_shopimglink.'" class="regular-text" />
 			   <p>※使用しない場合は空白</p>
 			   <div id="error_conf_shopimglink"></div>
 			   </td>
@@ -362,7 +361,7 @@ echo <<<HERE
 			   <th scope="row"><label for="inputtext">商品自動更新間隔</label></th>
 			   <td>
 			   <ul class="conf_update clearfix">
-			   	<li>$conf_update_select</li>
+			   	<li>'.$conf_update_select.'</li>
 				<li><input type="button" name="Submit" onclick="Javascript:document.update.submit()" value="今すぐ商品を更新" /></li>
 			   </ul>
 			   <div id="error_conf_update"></div>
@@ -371,9 +370,9 @@ echo <<<HERE
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">グーグルアナリティクス<br />トラッキングID</label></th>
 			   <td>
-			   <input name="conf_analytics" type="text" id="inputtext" value="$ht_conf_analytics" class="regular-text" />
+			   <input name="conf_analytics" type="text" id="inputtext" value=".'$ht_conf_analytics.'" class="regular-text" />
 			   <div id="error_conf_analytics"></div>
-			   <p><input type="checkbox" name="conf_analytics_flag" value="true" $analytics_flag /> グーグルアナリティクスを使用する</p>
+			   <p><input type="checkbox" name="conf_analytics_flag" value="true" '.$analytics_flag.' /> グーグルアナリティクスを使用する</p>
 			   </td>
 		   </tr>
 		</table>
@@ -384,9 +383,9 @@ echo <<<HERE
 		<form name="update" action="" method="post">
 			<input type="hidden" name="posted" value="K">
 		</form>
-        </div>
-		
-HERE;
+        </div>';
+
+		echo $here;
 		$this->JSinclude();
 		
 	}
@@ -468,30 +467,24 @@ HERE;
 
 echo $html;
 
-echo <<<HERE
-	
-	<div id="uc_msm_admincategory">
+$here = '<div id="uc_msm_admincategory">
 	<h2>カテゴリー設定</h2>
-	<p>※もしものデータ制限の関係で選択できる数を $this->category_addmax 個に制限しています。</p>
+	<p>※もしものデータ制限の関係で選択できる数を '.$this->category_addmax.' 個に制限しています。</p>
 	<form action="" method="post" name="uc_msm_category">
 	<input type="hidden" name="posted" value="Y">
-	$category_tag
+	'.$category_tag.'
 	<p class="submit"><input type="submit" name="Submit" class="button-primary" value="カテゴリーを設定" /></p>
 	<p class="error">※設定ボタンを押した後、データベースに保存するには時間がかかります。保存が完了したメッセージが出るまでお待ち下さい。</p>
 	</form>
-	</div>
-	
-HERE;
+	</div>';
+	echo $here;
 
 		}else{
 			
-echo <<<HERE
-	
-	<div id="uc_msm_admincategory">
+$here = '<div id="uc_msm_admincategory">
 	<h2>カテゴリー設定</h2>
-	<p>カテゴリーが取得できません。Authorizationコードが間違っている可能性があります。</p>
-	
-HERE;
+	<p>カテゴリーが取得できません。Authorizationコードが間違っている可能性があります。</p>';
+	echo $here;
 			
 		}
 
