@@ -370,7 +370,7 @@ $here = '<div id="uc_msm_admintop">
 		   <tr valign="top">
 			   <th scope="row"><label for="inputtext">グーグルアナリティクス<br />トラッキングID</label></th>
 			   <td>
-			   <input name="conf_analytics" type="text" id="inputtext" value=".'$ht_conf_analytics.'" class="regular-text" />
+			   <input name="conf_analytics" type="text" id="inputtext" value="'.$ht_conf_analytics.'" class="regular-text" />
 			   <div id="error_conf_analytics"></div>
 			   <p><input type="checkbox" name="conf_analytics_flag" value="true" '.$analytics_flag.' /> グーグルアナリティクスを使用する</p>
 			   </td>
