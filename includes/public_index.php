@@ -1,4 +1,5 @@
 <?php
+/// エラー出力
 error_reporting(0);
 
 require_once( UC_MSM_FUNCTIONPATH.'func_common.php');
@@ -21,6 +22,7 @@ class UcDsMoshimoPublic{
 	var $table_name_junle_array;
 	var $table_name_item_array;
 	
+	///アイテム一覧
 	var $item_sortID_array;
 	var $item_andor_array;
 	var $item_searchtarget_array;
@@ -35,19 +37,27 @@ class UcDsMoshimoPublic{
 	var $item_searchandor = UC_MSM_ITEMSEARCHANDOR;
 	var $item_searchcategory = UC_MSM_ITEMSEARCHCATEGORY;
 	
+	///ページ番号の表示数
 	var $link_max_num = UC_MSM_ITEMLIST_MAX;
+	///ページあたりの表示数
 	var $disp_item_num = UC_MSM_ITEMLIST_MAXITEM;
+	///アイテムの１行あたりの商品数
 	var $disp_item_column = UC_MSM_ITEMLIST_COLUM;
 	
+	///アイテム詳細
 	var $detail_slug = UC_MSM_DETAILSLUG;
 	var $item_detailID = UC_MSM_ITEMDETAILID;
 	
+	///もしも画像パス
 	var $item_imgpath = UC_MSM_IMAGE_URL;
 	
+	///もしもカートパス
 	var $item_cartpath = UC_MSM_CART_URL;
 	
+	///参考価格表示
 	var $fixprice_flag = "true";
 	
+	///コンストラクタ
 	function __construct(){
 		$this->table_name_conf_array = DefineArray("UC_MSM_TABLECONF_MARRAY");
 		$this->table_name_item_array = DefineArray("UC_ITEMDB_ARRAY");
@@ -57,6 +67,8 @@ class UcDsMoshimoPublic{
 		$this->item_searchtarget_array = DefineArray("UC_MSM_ITEMCATEGORY_RARRAY");
 	}
 	
+	///----------------------------------------------------------------------------------------
+	///JS作成
 	function PubJSinclude(){
 		$script = file_get_contents(UC_MSM_JSPATH."public_func.js");
 		$html = "<script type='text/javascript'>".$script."</script>";
@@ -64,26 +76,99 @@ class UcDsMoshimoPublic{
 		echo $html;
 	}
 	
+	///----------------------------------------------------------------------------------------
 	
+	///サイト情報
 	function getinfo(){
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		$get_array = $dbresult_obj->ConfDataGet();
 		return $get_array;
 	}
 	
+	///サイドメニュー表示
 	function getsidemenu(){
 		
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
+		///js作成
+		$this->PubJSinclude();
+		///一覧タグ作成
+		$junle_array = array();
+		$select_array = array();
+		
+		$now_junle_array = $dbresult_obj->SelectFieldAllDataArray($this->table_name_junle,$this->table_name_junle_array);
+		for($i=0; $i<count($now_junle_array); $i++){
+			if(!array_search($now_junle_array[$i]['junle_parentname'],$junle_array)){
+				$junle_array[$now_junle_array[$i]['junle_parentid']] = $now_junle_array[$i]['junle_parentname'];
+			}
+		}
+		
+		$array_count = 0;
+		foreach($junle_array as $key=>$value){
+			for($i=0; $i<count($now_junle_array); $i++){
+				if($key == $now_junle_array[$i]['junle_parentid']){
+					$select_array[$array_count]['parentname'] = $value;
+					$select_array[$array_count]['data'][$now_junle_array[$i]['junle_id']] = $now_junle_array[$i]['junle_name'];
+				}
+			}
+			$array_count++;
+		}
+		
+		
+		///スラッグリンク作成
+		$slagid = get_page_by_path($this->item_slug)->ID;
+		$permalink = get_permalink($slagid);
+		
+		if(count($select_array) > 0){
+			
+			///選択カテゴリからタグ作成
+			$output_tag = "<ul class='uc_msm_sidebar'>";
+			for($i=0; $i<count($select_array); $i++){
+				$output_tag .= "<li class='uc_msm_sideseg'><p class='uc_msm_sidetitle'>".$select_array[$i]['parentname']."</p>";
+				$output_tag .= "<ul class='uc_msm_subcategory'>";
+				$temp_select_array = $select_array[$i]['data'];
+				foreach($temp_select_array as $key=>$value){
+					$add_url_array = array( $this->item_selectID => $key, $this->item_searchcategory => 'select' );
+					$newlink = add_query_arg($add_url_array,$permalink);
+					$output_tag .= "<li><a href='".$newlink."'>".$value."</a></li>";
+				}
+				$output_tag .= "</li></ul>";
+			}
+			$output_tag .= "</ul>";
+		
+		}else{
+			///カテゴリが存在しない
+			$output_tag = "<p class='uc_msm_sidenomenu'>現在商品がありません</p>";
+		}
+		
+		return $output_tag;
+		
+		
+	}
+	
+	
+	///サイドメニュー表示
+	/*
+	function getsidemenu(){
+		
+		///DBクラス
+		$dbresult_obj = new uc_MoshimoDB;
+		///カテゴリー取得
 		$junle_obj = new uc_XMLLoad;
 		$category_array = $junle_obj->GetCategory();
+		
+		///js作成
 		$this->PubJSinclude();
 		
 		if($category_array){
 			
+			///一覧タグ作成
 			$now_junle_array = $dbresult_obj->SelectFieldAllData($this->table_name_junle,"junle_id");
 			$select_array = array();
 			$array_count = 0;
 			
+			///選択カテゴリ配列作成
 			foreach($category_array as $key=>$value){
 			
 				$temp_category_data_array = $value['data'];
@@ -105,11 +190,13 @@ class UcDsMoshimoPublic{
 				
 			}
 			
+			///スラッグリンク作成
 			$slagid = get_page_by_path($this->item_slug)->ID;
 			$permalink = get_permalink($slagid);
 			
 			if(count($select_array) > 0){
 				
+				///選択カテゴリからタグ作成
 				$output_tag = "<ul class='uc_msm_sidebar'>";
 				for($i=0; $i<count($select_array); $i++){
 					$output_tag .= "<li class='uc_msm_sideseg'><p class='uc_msm_sidetitle'>".$select_array[$i]['parentname']."</p>";
@@ -125,22 +212,26 @@ class UcDsMoshimoPublic{
 				$output_tag .= "</ul>";
 			
 			}else{
+				///カテゴリが存在しない
 				$output_tag = "<p class='uc_msm_sidenomenu'>現在商品がありません</p>";
 			}
 			
 			
 		}else{
+			///カテゴリーが取得できない
 			$output_tag = "<p class='uc_msm_sidenomenu'>現在商品がありません</p>";
 		}
 		
 		return $output_tag;
 		
-	}
+	}*/
 	
+	///ヘッダー用タイトル取得
 	function GetTitle(){
 		
 		global $uc_msm_message_flag;
 		$flag = $uc_msm_message_flag;
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		$return = "";
 		
@@ -168,10 +259,12 @@ class UcDsMoshimoPublic{
 		
 	}
 	
+	///GETからリンク作成
 	function GetParmalinkArray(){
 		
 		$search_url_array = array();
 		
+		///データ取得
 		$getID = htmlspecialchars($_GET[ $this->item_selectID ]);
 		$sortID_temp = htmlspecialchars($_GET[ $this->item_sortID ]);
 		$sortdesc_temp = htmlspecialchars($_GET[ $this->item_sortdesc ]);
@@ -181,6 +274,7 @@ class UcDsMoshimoPublic{
 		
 		$search_url_array[$this->item_selectID] = $getID;
 		
+		///ページ
 		if(!empty($_GET[ $this->item_pagingID ]) && valid_input_num($_GET[ $this->item_pagingID ],"ページ") === true){
 			$page = $_GET[ $this->item_pagingID ];
 		}else{
@@ -188,6 +282,7 @@ class UcDsMoshimoPublic{
 		}
 		$search_url_array[$this->item_pagingID] = $page;
 		
+		///ソート
 		if(array_key_exists($sortID_temp,$this->item_sortID_array)){
 			$sortID = $sortID_temp;
 			if($sortdesc_temp == "desc"){
@@ -202,6 +297,7 @@ class UcDsMoshimoPublic{
 		$search_url_array[$this->item_sortID] = $sortID;
 		$search_url_array[$this->item_sortdesc] = $sortdesc;
 		
+		///検索
 		if($searchlang){
 			$search_lang = $searchlang;
 		}else{
@@ -209,6 +305,7 @@ class UcDsMoshimoPublic{
 		}
 		$search_url_array[$this->item_searchlang] = $search_lang;
 			
+		///AND/OR
 		if(array_key_exists($searchandor,$this->item_andor_array)){
 			$search_andor = $searchandor;
 		}else{
@@ -216,6 +313,7 @@ class UcDsMoshimoPublic{
 		}
 		$search_url_array[$this->item_searchandor] = $search_andor;
 		
+		///検索カテゴリ
 		if(array_key_exists($searchcategory,$this->item_searchtarget_array)){
 			$search_category = $searchcategory;
 		}else{
@@ -228,16 +326,20 @@ class UcDsMoshimoPublic{
 		return $search_url_array;
 	}
 	
+	///商品一覧ページ
 	function PageItemList(){
 		
 		global $post;
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		
 		
 		$pager_obj = new Un_msm_Paging;
 		
+		///GETからリンク作成
 		$get_array = $this->GetParmalinkArray();
 		
+		///---------------------------------------------------------------------------
 		
 		$temp_select_data_array = $dbresult_obj->ItemListGet(
 			$get_array[$this->item_selectID],
@@ -266,6 +368,7 @@ class UcDsMoshimoPublic{
 		
 		$data_tag = $this->PageItemListTag($select_data_array['data']);
 		
+		///タイトル取得
 		if($get_array[$this->item_searchlang]){
 			$disp_tag_array['title'] = "検索結果:".$datacount."件";
 		}else{
@@ -277,12 +380,14 @@ class UcDsMoshimoPublic{
 		return $disp_tag_array;
 	}
 	
+	///一覧タグ作成
 	function PageItemListTag($data){
 		
 		$column_count = 1;
 		
 		for($i=0; $i<count($data); $i++){
 			
+			///販売価格取得
 			$price_array = $this->ItemPriceReturn($data[$i],"l");
 			if($price_array['item_fixprice'] > $price_array['item_price']){
 				$sale_fixprice_tag = "<p class='uc_item_fixpricearea'>参考価格：<span class='uc_item_fixpriceborder'>".number_format($price_array['item_fixprice'])."円</span></p>";
@@ -290,6 +395,7 @@ class UcDsMoshimoPublic{
 				$sale_fixprice_tag = "";
 			}
 			
+			///リンク作成
 			$detail_slagid = get_page_by_path($this->detail_slug)->ID;
 			$detail_permalink = get_permalink($detail_slagid);
 			$item_detailID = $data[$i]['item_ArticleId'];
@@ -320,20 +426,28 @@ class UcDsMoshimoPublic{
 		return $item_tag;
 	}
 	
+	///一覧用販売価格
 	function ItemPriceReturn($data,$imgsize){
 		
+		///$imgsize l,m,s
 		
 		$return_array = array();
 		
+		///アイテム名
 		$return_array['item_name'] = $data['item_Name'];
+		///画像パス
 		$return_array['item_imgpath'] = $this->item_imgpath.$data['item_ImageCode']."/1/".$imgsize.".jpg";
+		///最低販売価格
 		$return_array['item_minprice'] = $data['item_MinimumPrice'];
+		///販売価格
 		$return_array['item_price'] = $data['item_RecommendedPrice'];
+		///希望小売り価格
 		if($this->fixprice_flag == "true"){
 			$return_array['item_fixprice'] = $data['item_FixedPrice'];
 		}else{
 			$return_array['item_fixprice'] = 0;
 		}
+		///割引表示
 		if($return_array['item_fixprice'] > 0){
 			$return_array['item_offpercent'] = round(100 - ($return_array['item_price']/$return_array['item_fixprice']*100));
 		}else{
@@ -343,37 +457,47 @@ class UcDsMoshimoPublic{
 		return $return_array;
 	}
 	
+	///商品詳細ページ
 	function PageItemDetail(){
 		
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		
 		$detail_tag = "";
 		
 		
+		///該当アイテム一覧
 		if($_GET[ $this->item_detailID ]){
 			
+			///詳細データ取得
 			$getID = htmlspecialchars($_GET[ $this->item_detailID ]);
 			$select_data_array = $dbresult_obj->ItemDetailGet($getID);
 			
 			
+			///店舗ID取得
 			$now_setval_array = $dbresult_obj->ConfDataGet();
 			$ht_conf_apicode = $now_setval_array['conf_salecode'];
 			
 			if(count($select_data_array)){
 				
+				///クリックカウント
 				$this->ClickCountUp($getID);
 				
 				
+				///価格取得
 				$sale_fixprice_tag = "";
 				$price_array = $this->ItemPriceReturn($select_data_array,"l");
 				if($price_array['item_fixprice'] > $price_array['item_price']){
 					$sale_fixprice_tag = "<p class='uc_item_fixpricearea'>参考価格：<span class='uc_item_fixpriceborder'>".number_format($price_array['item_fixprice'])."円</span></p>";
 				}
 				
+				///大きい画像パス
 				$item_tag_imgpath = $price_array['item_imgpath'];
 				
+				///アイコン数
 				$icon_photo_tag = "";
 				$icon_photo_count = $select_data_array['item_ImageCount'];
+				///カートボタンパス
 				$item_tag_cartpath = $this->item_cartpath."shop_id=".$ht_conf_apicode."&article_id=".$getID;
 				
 				if($icon_photo_count > 0){
@@ -423,8 +547,10 @@ class UcDsMoshimoPublic{
 		
 	}
 	
+	///クリックカウント
 	function ClickCountUp($countID){
 		$today = date('Y-m-d');
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		$item_data_array = $dbresult_obj->ItemDetailGet($countID);
 		
@@ -450,6 +576,7 @@ class UcDsMoshimoPublic{
 					$new_array[$today] = 1;
 				}
 				
+				///テキスト状態に戻す
 				$set_txt_array = array();
 				foreach($new_array as $key=>$value){
 					$set_txt_array[] = $key."*".$value;
@@ -460,6 +587,7 @@ class UcDsMoshimoPublic{
 				$set_txt = $today."*1";
 			}
 			
+			///DB書き込み
 			$table_set_array["item_ClickcountData"] = $set_txt;
 			$table_set_array["item_Clickcount"] = $count_up + 1;
 			$dbresult_obj->UpdateForID($this->table_name_item,"item_ArticleId",$countID,$table_set_array);
@@ -468,9 +596,12 @@ class UcDsMoshimoPublic{
 		
 	}
 	
+	///リコメンド商品選別
 	function ReccomendList(){
 		
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
+		///Pager
 		$pager_obj = new Un_msm_Paging;
 		
 		$more_key = "item_StockStatus";
@@ -486,8 +617,10 @@ class UcDsMoshimoPublic{
 		}
 	}
 	
+	///GoogleAnalytics
 	function Analytics(){
 		
+		///DBクラス
 		$dbresult_obj = new uc_MoshimoDB;
 		$conf_array = $dbresult_obj->ConfDataGet();
 		
